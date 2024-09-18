@@ -1,0 +1,487 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+body p {
+    color: #196299;
+}
+
+.top-bar {
+    background: linear-gradient(135deg, #003f5c, #196299);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    border-bottom: 5px solid #003f5c;
+}
+
+.top-bar img {
+    max-height: 60px;
+}
+
+.card {
+    position: relative;
+    text-align: center;
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 600px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: max-height 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    max-height: 80px; 
+}
+
+.card.expanded {
+    max-height: 1000px;
+}
+
+.card-header {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.expand-button {
+    background: #196299;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.expand-button:hover {
+    background-color: #003f5c;
+}
+
+.pkmn-detail {
+    text-align: center;
+}
+
+.pkmn-detail h1 {
+    margin-top: 0;
+    color: #196299;
+    font-size: 2.5em; 
+    font-weight: 700;
+}
+
+.pkmn-detail p {
+    margin: 10px 0;
+    font-size: 20px; 
+    line-height: 1.5;
+}
+
+.pkmn-detail span {
+    font-size: 18px; 
+    color: #196299;
+    font-weight: bold;
+}
+
+.pkmn-detail img {
+    max-width: 100%; 
+    height: auto;
+    border-radius: 15px;
+    border: 4px solid #196299;
+    margin-top: 10px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.pkmn-detail img:hover {
+    transform: scale(1.2); 
+    border-color: #ffcc00; 
+}
+
+#fetch-button {
+    display: block;
+    width: 100%;
+    max-width: 220px;
+    margin: 20px auto;
+    padding: 12px;
+    font-size: 18px;
+    color: white;
+    background-color: #196299;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#fetch-button:hover {
+    background-color: #003f5c;
+    transform: scale(1.05);
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    visibility: hidden; 
+}
+
+.overlay.active {
+    visibility: visible; 
+}
+
+.loader {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.dots {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.dot {
+    height: 20px;
+    width: 20px;
+    margin: 0 3px;
+    background-color: white;
+    border-radius: 50%;
+    display: inline-block;
+    animation: dot-blink 1.5s infinite;
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+@keyframes dot-blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.2;
+    }
+}
+
+.shiny-button {
+    display: none; 
+    width: 100%;
+    max-width: 120px;
+    margin: 10px auto;
+    padding: 12px;
+    font-size: 16px;
+    color: white;
+    background-color: #196299; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.shiny-button.active {
+    background-color: #ffcc00; 
+}
+
+.shiny-button:hover {
+    background-color:  #ffcc00; 
+}
+
+
+.team-card {
+    margin: 20px auto;
+    width: 90%;
+    max-width: 600px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+}
+
+.team-card h2 {
+    color: #196299;
+    font-size: 2em;
+    margin-top: 0;
+}
+
+.team-card #generate-team-button {
+    padding: 12px;
+    font-size: 18px;
+    color: white;
+    background-color: #196299;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.team-card #add-box-button {
+    padding: 12px;
+    font-size: 18px;
+    color: white;
+    background-color: #196299;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.team-card button:hover {
+    background-color: #003f5c;
+}
+
+
+.team-box-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.team-box {
+    width: calc(50% - 10px);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.team-box img {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    border: 2px solid #196299;
+}
+
+.team-box p {
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+
+@media (max-width: 600px) {
+    .team-box {
+        width: 100%;
+    }
+    .pkmn-detail h1 {
+        font-size: 1rem;
+        padding: 20px;
+    }
+}
+
+.add-box-button {
+    background: #196299;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.add-box-button:hover {
+    background-color: #003f5c;
+}
+
+#reset {
+    margin-top: 5px;
+}
+
+.search-card {
+    margin: 20px auto;
+    width: 90%;
+    max-width: 600px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+}
+
+.search-card h2 {
+    color: #196299;
+    font-size: 2em;
+    margin-top: 0;
+}
+
+.search-card input[type="text"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #196299;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.search-card button {
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    background-color: #196299;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-card img {
+ height: 200px;
+}
+
+.search-card button:hover {
+    background-color: #003f5c;
+}
+    .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden; 
+    z-index: 1000;
+}
+
+.popup.active {
+    visibility: visible; 
+}
+
+.popup-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.popup-content h2 {
+    margin-top: 0;
+    color: #196299;
+    font-size: 1.5em;
+}
+
+.popup-content button.close-popup {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #196299;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.popup-content button.close-popup:hover {
+    background-color: #003f5c;
+}
+
+.popup-content p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+.more-info-button {
+display: inline-block;
+padding: 10px 20px;
+background-color: #fff;
+color: #196299;
+border-color: #196299;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+text-align: center;
+text-decoration: none;
+transition: background-color 0.3s, transform 0.2s;
+}
+
+.more-info-button:hover {
+background-color: #196299; 
+color: #fff;
+transform: scale(1.05); 
+}
+
+.more-info-button:focus {
+outline: none; 
+box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); 
+}
+.hidden {
+display: none;
+}
+.top-bar {
+text-align: center; 
+background-color: #333; 
+padding: 20px; 
+}
+
+.top-bar nav {
+display: flex; 
+flex-direction: column; 
+align-items: center;
+}
+
+.top-bar nav img { 
+height: 100px; 
+}
+
+.top-bar nav ul {
+list-style: none;
+padding: 0;
+margin: 0;
+display: flex; 
+}
+
+.top-bar nav ul li {
+margin: 0 15px; 
+}
+
+.top-bar nav ul li a {
+text-decoration: none;
+color: #fff; 
+font-weight: bold;
+font-size: 18px; 
+}
+
+.top-bar nav ul li a:hover {
+text-decoration: underline;
+}
+html {
+scroll-behavior: smooth;    
+}
+/* Stile per il pulsante "Torna su" */
+#scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px; 
+    background-color: rgba(0, 0, 0, 0.5); 
+    color: white;
+    border: none; 
+    border-radius: 5px; 
+    padding: 10px 15px; 
+    cursor: pointer; 
+    font-size: 18px; 
+    display: none;   
+}
+
+#scroll-to-top:hover {
+    background-color: rgba(0, 0, 0, 0.8); 
+}
+

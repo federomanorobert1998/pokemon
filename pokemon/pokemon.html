@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Metadati essenziali per accessibilità e responsività -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <title>Pokédex</title>
+
+    <!-- Font scelti per dare un tocco stilistico (Google Fonts) -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Collegamento al file CSS esterno -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Barra di navigazione principale con logo e link -->
+    <div class="top-bar">
+        <nav>
+            <!-- Aggiunta di un testo alternativo descrittivo per gli screen reader -->
+            <img src="img/International_Pokémon_logo.svg.png" alt="Logo del franchise Pokémon"><br>
+            <ul>
+                <!-- I link hanno ora attributi "aria-label" per migliorare l'accessibilità -->
+                <li><a href="#card" aria-label="Genera un Pokémon">Genera Pokémon</a></li>
+                <li><a href="#team-card" aria-label="Crea la tua squadra Pokémon">Crea la tua squadra</a></li>
+                <li><a href="#search-card" aria-label="Cerca Pokémon nel Pokedex">Cerca Pokémon</a></li>
+            </ul>
+        </nav>
+    </div>
+    
+    <!-- Sezione principale per generare un Pokémon -->
+    <div id="card" class="card">
+        <!-- Un pulsante che permette di espandere la visualizzazione dei dettagli -->
+        <button class="expand-button" aria-label="Espandi i dettagli del Pokémon">+</button>
+        <div class="pkmn-detail">
+            <h1 id="header">Scopri nuovi Pokémon!</h1>
+            <!-- Contenitori dinamici per visualizzare i dettagli del Pokémon -->
+            <p><span id="name" aria-label="Nome del Pokémon"></span></p>
+            <p><span id="id" aria-label="ID del Pokémon"></span></p>
+            <p id="image" aria-label="Immagine del Pokémon"></p>
+            
+            <!-- Pulsante per alternare la versione Shiny del Pokémon, con label descrittiva -->
+            <button id="shiny-button" class="shiny-button" aria-label="Visualizza Pokémon in versione Shiny">Shiny</button>
+
+            <!-- Informazioni aggiuntive -->
+            <p><span id="type" aria-label="Tipo del Pokémon"></span></p>
+            <p><span id="weight" aria-label="Peso del Pokémon"></span></p>
+            <p><span id="height" aria-label="Altezza del Pokémon"></span></p>
+            <p><span id="abilities" aria-label="Abilità del Pokémon"></span></p>
+
+            <!-- Questo pulsante compare solo quando ci sono ulteriori informazioni disponibili -->
+            <button id="more-info-button" class="hidden more-info-button" aria-label="Scopri di più sul Pokémon">Scopri di più</button>
+        </div>
+
+        <!-- Il pulsante per generare un Pokémon casuale -->
+        <button id="fetch-button" aria-label="Carica un Pokémon casuale">Carica Pokémon Casuale</button>
+    </div>
+
+    <!-- Finestra popup per visualizzare statistiche dettagliate del Pokémon -->
+    <div class="popup" id="stats-popup" role="dialog" aria-labelledby="popup-title">
+        <div class="popup-content">
+            <!-- Pulsante per chiudere la finestra popup -->
+            <button class="close-popup" id="close-popup" aria-label="Chiudi finestra popup">X</button>
+            <h2 id="popup-title">Statistiche del Pokémon</h2>
+            <div id="stats-content"></div>
+        </div>
+    </div>
+
+    <!-- Sezione per creare una squadra di Pokémon -->
+    <div id="team-card" class="team-card">
+        <h2>Genera una squadra per la tua avventura!</h2>
+        <div class="team-box-container" id="team-box-container">
+            <!-- Sezione dinamica per visualizzare i Pokémon della squadra -->
+            <div class="team-box" id="team-box-1"><img src="" alt="Pokémon 1 della squadra"><p></p></div>
+            <div class="team-box" id="team-box-2"><img src="" alt="Pokémon 2 della squadra"><p></p></div>
+            <div class="team-box" id="team-box-3"><img src="" alt="Pokémon 3 della squadra"><p></p></div>
+            <div class="team-box" id="team-box-4"><img src="" alt="Pokémon 4 della squadra"><p></p></div>
+            <div class="team-box" id="team-box-5"><img src="" alt="Pokémon 5 della squadra"><p></p></div>
+            <div class="team-box" id="team-box-6"><img src="" alt="Pokémon 6 della squadra"><p></p></div>
+        </div>
+        <!-- Pulsanti per generare, aggiungere e resettare la squadra -->
+        <button id="generate-team-button" aria-label="Genera una squadra Pokémon">Genera una squadra per la tua avventura</button>
+        <button id="add-box-button" class="add-box-button" aria-label="Aggiungi un Pokémon alla squadra">Aggiungi un Pokémon</button>
+        <button id="reset" class="more-info-button" aria-label="Resetta la squadra Pokémon">Reset</button>
+    </div>
+
+    <!-- Sezione per cercare un Pokémon specifico -->
+    <div id="search-card" class="search-card">
+        <h2>Cerca un Pokémon nel Pokedex!</h2>
+        <div id="search-result"></div>
+        <!-- Input per la ricerca, con placeholder descrittivo -->
+        <input type="text" id="search-input" placeholder="Inserisci il nome del Pokémon (Ditto, Mew, Luxray ...)" aria-label="Campo di ricerca Pokémon">
+        <button onclick="searchPokemon()" aria-label="Cerca il Pokémon">Cerca</button>
+    </div>
+
+    <!-- Overlay che appare durante il caricamento -->
+    <div class="overlay" id="loading-overlay" role="status" aria-live="polite">
+        <div class="loader">Caricamento<span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+    </div>
+    <!-- Pulsante "Torna su" -->
+    <button id="scroll-to-top" aria-label="Torna all'inizio della pagina">↑</button>
+    <!-- Collegamento al file JavaScript esterno -->
+    <script src="script.js"></script>
+</body>
+</html>
